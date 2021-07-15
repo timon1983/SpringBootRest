@@ -25,9 +25,6 @@ public class User {
 
     @OneToMany(mappedBy = "userList", cascade = CascadeType.ALL)
     private List<Event> events;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-//    private List<Event> events;
 
     @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
