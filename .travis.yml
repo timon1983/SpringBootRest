@@ -6,7 +6,7 @@ before_install:
   - chmod +x gradlew
 
 script:
-  - .\gradlew.bat build
+  - gradle build
 
 notifications:
   email: timon1983@yandex.ru
