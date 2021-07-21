@@ -11,22 +11,22 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 class SpringRestProjectApplicationTests {
 
-	private UserService userService;
-	private EventService eventService;
-	private FileService fileService;
-
-	@Autowired
-	public SpringRestProjectApplicationTests(UserService userService, EventService eventService, FileService fileService) {
-		this.userService = userService;
-		this.eventService = eventService;
-		this.fileService = fileService;
-	}
-
-	@Test
-	public void contextLoads() throws Exception
-	{
-		assertThat(userService).isNotNull();
-		assertThat(eventService).isNotNull();
-		assertThat(fileService).isNotNull();
-	}
+//	private UserService userService;
+//	private EventService eventService;
+//	private FileService fileService;
+//
+//	@Autowired
+//	public SpringRestProjectApplicationTests(UserService userService, EventService eventService, FileService fileService) {
+//		this.userService = userService;
+//		this.eventService = eventService;
+//		this.fileService = fileService;
+//	}
+//
+//	@Test
+//	public void contextLoads() throws Exception
+//	{
+//		assertThat(userService).isNotNull();
+//		assertThat(eventService).isNotNull();
+//		assertThat(fileService).isNotNull();
+//	}
 }

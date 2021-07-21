@@ -30,7 +30,4 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Event event;
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
 }

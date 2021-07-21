@@ -1,10 +1,11 @@
-package com.example.SpringRestProject.controller;
+package com.example.SpringRestProject.rest;
 
 import com.example.SpringRestProject.model.User;
 import com.example.SpringRestProject.service.EventService;
 import com.example.SpringRestProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/v1/users")
 public class UserController {
 
     private UserService userService;
@@ -25,6 +26,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "{id}" , method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('users:read')")
     public ResponseEntity<User> getUser(@PathVariable("id") Long userId){
         if(userId == null){
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
@@ -39,6 +41,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "" , method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('users:read')")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userService.findAll();
 
@@ -54,6 +57,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "" , method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<User> saveUser(@RequestBody @Valid User user){
         HttpHeaders headers = new HttpHeaders();
         if(user == null){
@@ -66,6 +70,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "" , method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<User> updateUser(@RequestBody @Valid User user , UriComponentsBuilder builder){
         HttpHeaders headers = new HttpHeaders();
         if(user == null){
@@ -78,6 +83,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "{id}" , method = RequestMethod.DELETE , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('users:write')")
     public ResponseEntity<User> deleteUser(@PathVariable("id") Long userId){
         User user = userService.findById(userId);
         if(user == null){

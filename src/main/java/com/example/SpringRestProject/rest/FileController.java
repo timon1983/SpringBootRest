@@ -1,21 +1,20 @@
-package com.example.SpringRestProject.controller;
+package com.example.SpringRestProject.rest;
 
-import com.example.SpringRestProject.model.Event;
 import com.example.SpringRestProject.model.File;
-import com.example.SpringRestProject.service.EventService;
 import com.example.SpringRestProject.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("api/v1/files")
 public class FileController {
 
     private FileService fileService;
@@ -28,6 +27,7 @@ public class FileController {
 
 
     @RequestMapping(value = "{id}" , method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('file:read')")
     public ResponseEntity<File> getFile(@PathVariable("id") Long fileId){
         if(fileId == null){
             return new ResponseEntity<File>(HttpStatus.BAD_REQUEST);
@@ -41,6 +41,7 @@ public class FileController {
     }
 
     @RequestMapping(value = "" , method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('file:read')")
     public ResponseEntity<List<File>> getAllFiles(){
         List<File> files = fileService.findAll();
         if(files.isEmpty()){
@@ -50,6 +51,7 @@ public class FileController {
     }
 
     @RequestMapping(value = "" , method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('file:write')")
     public ResponseEntity<File> saveFile(@RequestBody @Valid File file){
         HttpHeaders headers = new HttpHeaders();
         if(file == null){
@@ -60,6 +62,7 @@ public class FileController {
     }
 
     @RequestMapping(value = "" , method = RequestMethod.PUT , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('file:write')")
     public ResponseEntity<File> updateFile(@RequestBody @Valid File file , UriComponentsBuilder builder){
         HttpHeaders headers = new HttpHeaders();
         if(file == null){
@@ -70,6 +73,7 @@ public class FileController {
     }
 
     @RequestMapping(value = "{id}" , method = RequestMethod.DELETE , produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('file:write')")
     public ResponseEntity<File> deleteFile(@PathVariable("id") Long fileId){
         File file = fileService.findById(fileId);
         if(file == null){
