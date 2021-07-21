@@ -14,7 +14,8 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-  - ./gradlew build --scan -s no
+  - ./gradlew build --scan -s
+  - no
 
 notifications:
   email: timon1983@yandex.ru
