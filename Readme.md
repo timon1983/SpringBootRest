@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/timon1983/SpringBootRest.png)](https://travis-ci.com/timon1983/SpringBootRest)
+[![Build Status](https://travis-ci.com/timon1983/SpringBootRest.svg)](https://travis-ci.com/timon1983/SpringBootRest)
 
 Spring Boot on Docker connecting to MySQL Docker container
 
